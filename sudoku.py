@@ -4,29 +4,34 @@ import itertools
 
 # Part 1:
 def string_puzzle_to_arr(puzzle):
-    return np.array([list(line.strip()) for line in puzzle.split('\n') if line.strip()], dtype=np.int)
+    return np.array([list(line.strip()) for line in puzzle.split('\n') if line.strip()], dtype= int)
 
 class Board:
     def __init__(self, puzzle):
-        pass
+        if isinstance(puzzle, str):
+            self.arr = string_puzzle_to_arr(puzzle)
+        else: 
+            self.arr = puzzle
 
     def get_row(self, row_index):
-        pass
+        return self.arr[row_index]
 
     def get_column(self, col_index):
-        pass
+        return self.arr[:, col_index]
 
     def get_block(self, pos_1, pos_2):
-        pass
+        start_row = pos_1 * 3
+        start_col = pos_2 * 3
+        return self.arr[start_row : start_row+3, start_col: start_col+3]
 
     def iter_rows(self):
-        pass
+        return [row for row in self.arr]
 
     def iter_columns(self):
-        pass
+        return [col for col in self.arr.T]
 
     def iter_blocks(self):
-        pass
+        return [self.get_block(i, j) for i in range(3) for j in range(3)]
 
 
 # Part 2:
